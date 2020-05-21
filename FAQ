@@ -1,0 +1,21 @@
+The robot cannot walk in the "trot mode". I think the robot's speed is too fast. Can you tell me where I can control the speed of the robot?
+Also, I want to interpret the dynamics of robot behavior.
+You can adjust the frequency of the trot in the config file here: https://github.com/stanfordroboticsclub/StanfordQuadruped/blob/master/pupper/Config.py. Look for the two variables: self.overlap_time and self.swing_time. I unfortunately don't have anything on the dynamics of trotting/walking.
+
+Overlap time refers to the duration which all four feet are on the ground before picking up one pair of legs. Swing_time refers to how long a leg will be in the air per step. One cycle of trot is broken up into four phases: 1) all four feet are on the ground (duration=overlap_time), then 2) one pair of diagonals legs lift up and swing to their next locations (duration=swing_time), then 3) all four feet are on the ground again, and finally 4) the other pair of diagonal legs lift up and move to their next locations. So as you might be able to deduce, one complete cycle of trot takes 2*overlap_time + 2*swing_time.
+
+If you'd like to slow the trot by 2x, then you can double each of these values to overlap_time=0.2 and swing_time=0.3. However, the robot becomes unstable if the frequency isn't quite right and you'll have to experiment a bit yourself.
+
+We unfortunately don't have a walk implemented since walking is actually tricker to implement than trotting. This is because you're actually more unstable during a walk then a trot since a walk is asymmetric.
+
+How select Servo?
+- With regards to choosing a servo, we previously had used the Savox 1260MG which cost quite a bit ($80per) and would overheat very quickly when pupper was just standing. We then switched to the CLS6327HV, which is slightly faster and slightly weaker than the CLS6336 but our first batch of those servos were jittery and were quite noisy. We then bought new CLS6336 and CLS6327 servos, and for some reason (new firmware?), both types were smoother and quieter. In the end we selected the CLS6336 as the official servo in case people wanted to put more payload on the robot. Basically, the main criteria for choosing new motors are 1) they don't over heat 2) can move fast enough to track the swing trajectories correctly and 3) have enough torque to support pupper on 2 feet. For the last requirement, we look for servos with a peak force to weight ratio of at least 4.0 so that when pupper is standing on just 2 feet, it has a T/W ratio of at least 2.0. I haven't tested any servos slower than the CLS6336, but it's possible they'd work too. You might be limited in terms of how fast the robot can walk around.
+
+About the IMU
+- The IMU was previously being used to help stabilize Pupper, but we found that even though our compensation method made the robot walk more smoothly, it also tended to make the robot walk with its body tilted to the side (bug, not a feature) so we ended up scrapping it for the time being. The method that we used was like a chicken-head stabilization type of thing, but instead of stabilizing the head, we stabilized the feet, so that even if the robot was falling over, it would still put its feet correctly on the ground. On top of that, we added a small term to attempt to bring the body back to horizontal, but we couldn't find a satisfactory balance between strong correction and smooth walking.
+
+
+- I(Nathan) like the idea of merging the joystick code with the main code and removing the UDPComms dependency. We might still stick with our python PS4 joystick library since then we have control over the rumble and led color.
+
+Is there any theory book for reference?
+-Please refer to <Legged Robots That Balance> by Marc H.Raibert
