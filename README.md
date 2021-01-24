@@ -1,7 +1,7 @@
-# Stanford Quadruped
+# MangDang Quadruped from Stanford Quadruped
 
 ## Overview
-This repository hosts the code for Stanford Pupper and Stanford Woofer, Raspberry Pi-based quadruped robots that can trot, walk, and jump. 
+This repository hosts the code for Pupper mini Robot based on Stanford Pupper, Raspberry Pi-based quadruped robots that can trot, walk, and jump. 
 
 ![Pupper CC Max Morse](https://live.staticflickr.com/65535/49614690753_78edca83bc_4k.jpg)
 
