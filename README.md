@@ -3,7 +3,7 @@
 ## Overview
 This repository hosts the code for Pupper mini Robot based on Stanford Pupper, Raspberry Pi-based quadruped robots that can trot, walk, and jump. 
 
-![Pupper CC Max Morse](https://live.staticflickr.com/65535/49614690753_78edca83bc_4k.jpg)
+![Pupper CC Max Morse](imgs/PupperPro&Mini.JPG)
 
 Video of pupper in action: https://youtu.be/NIjodHA78UE
 
