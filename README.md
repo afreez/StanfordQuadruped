@@ -40,14 +40,13 @@ While you can find the bill of materials by looking through the document linked 
 - Ethernet cable
 
 ### Steps
+0. Flash raspios into the card
+    - Downdload 2021-01-11-raspios-buster-armhf-lite.img
+    - Use etcher to flash the card     
+    -     
 1. Set up the Raspberry Pi
     - Follow the instructions on this repo to put the self-setup code on the Pi: https://github.com/stanfordroboticsclub/RPI-Setup
-    - If you're not on Stanford campus, use 
-        ```bash
-        sudo raspi-config
-        ```
-        to connect the Raspberry Pi to your home wifi network. It's important to connect to the internet over wifi and leave your ethernet port unused. This is because our UDPComms library checks that the ethernet adapter has a certain ip and subnet mask so it can do inter-process and inter-device communication.
-    - Note: The robot code won't work without following the RPI-Setup instructions linked above because the robot's inter-process communication layer (UDPComms) needs the Pi to have a certain ethernet configuration. If you're having problems with the networking, specifically with UDPComms failing, check out this issue: https://groups.google.com/forum/#!topic/stanford-quadrupeds/GO5GPiBUcnc
+
 2. Test that the Pi works and connects to the internet
     ```bash
     ping www.google.com
@@ -67,11 +66,14 @@ While you can find the bill of materials by looking through the document linked 
     - We haven't yet characterized the benefits of using the preempt-rt kernel on the Pi so skipping it is totally fine.
 4. Clone this code
     ```bash
-    git clone https://github.com/stanfordroboticsclub/StanfordQuadruped.git
+    git clone -b pupper-mini-lite https://github.com/mangdangroboticsclub/QuadrupedRobot.git
     ```
 5. Install requirements
+    enable spi and i2c before install
     ```bash
-    cd StanfordQuadruped
+    cd QuadrupedRobot
+    sudo cp Mangdang/IO_Configuration/config.txt /boot/ -f
+    sudo raspi-config
     sudo bash install.sh
     ```
 6. Power-cycle the robot
