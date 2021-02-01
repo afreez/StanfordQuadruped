@@ -40,14 +40,15 @@ While you can find the bill of materials by looking through the document linked 
 - Ethernet cable
 
 ### Steps
-0. Flash raspios into the card
-    - Downdload 2021-01-11-raspios-buster-armhf-lite.img
-    - Use etcher to flash the card     
+1. Flash raspios into the card
+    - Downdload ![2020-02-13-raspbian-buster-lite.img](https://downloads.raspberrypi.org/raspbian_lite/images/)
+    - Use etcher or Win32DiskImager to flash the image into SD card     
     -     
-1. Set up the Raspberry Pi
-    - Follow the instructions on this repo to put the self-setup code on the Pi: https://github.com/stanfordroboticsclub/RPI-Setup
+2. Set up the Raspberry Pi
+    - Follow the instructions on this repo to put the self-setup code on the Pi: https://github.com/stanfordroboticsclub/RPI-Setup    
 
-2. Test that the Pi works and connects to the internet
+3. Test that the Pi works and connects to the internet
+    - sudo raspi-config #setting the wifi location and then can connect wifi
     ```bash
     ping www.google.com
     ```
@@ -56,14 +57,6 @@ While you can find the bill of materials by looking through the document linked 
     ifconfig
     ```
     and check the wlan0 portion to check if you have an IP address and other debugging info. 
-3. (Optional) Install the PREEMPT-RT kernel onto the Pi
-    - Download the kernel patch https://github.com/lemariva/RT-Tools-RPi/tree/master/preempt-rt/kernel_4_19_59-rt23-v7l%2B
-    - Follow these instructions starting from “Transfer the Kernel” https://lemariva.com/blog/2019/09/raspberry-pi-4b-preempt-rt-kernel-419y-performance-test
-    - Test by running in the shell:
-        ```bash
-        uname -r
-        ```
-    - We haven't yet characterized the benefits of using the preempt-rt kernel on the Pi so skipping it is totally fine.
 4. Clone this code
     ```bash
     git clone -b pupper-mini-lite https://github.com/mangdangroboticsclub/QuadrupedRobot.git
@@ -72,8 +65,7 @@ While you can find the bill of materials by looking through the document linked 
     enable spi and i2c before install
     ```bash
     cd QuadrupedRobot
-    sudo cp Mangdang/IO_Configuration/config.txt /boot/ -f
-    sudo raspi-config
+    sudo raspi-config   // enable I2C
     sudo bash install.sh
     ```
 6. Power-cycle the robot
